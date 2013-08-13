@@ -28,8 +28,8 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
         {
             ISession Session = message.Session;
 
-            StoC.P01_UnknownMessage PingServerReply = new StoC.P01_UnknownMessage();
-            PingServerReply.Unknown0 = message.Unknown0;
+            StoC.P01_PingServerReply PingServerReply = new StoC.P01_PingServerReply();
+            PingServerReply.Timestamp = message.Unknown0;
             Session.Send(PingServerReply);
         }
 
@@ -42,7 +42,7 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
         {
             ISession Session = message.Session;
 
-            Session.Send(new StoC.P02_UnknownMessage());
+            Session.Send(new StoC.P02_ComputerInfoReply());
         }
 
         private void OnClientSessionInfo(CtoS.P10_UnknownMessage message)
@@ -131,7 +131,7 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
 
             Session.Send(CharacterInfo);
 
-            StoC.P10_UnknownMessage AccountMedals = new StoC.P10_UnknownMessage();
+            StoC.P10_AccountMedals AccountMedals = new StoC.P10_AccountMedals();
             AccountMedals.Unknown0 = message.Unknown0;
             AccountMedals.Unknown1 = new byte[456];
             Session.Send(AccountMedals);
@@ -142,10 +142,10 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             Session.Send(P27);
 
             // Protocol version: 21315
-            StoC.P08_UnknownMessage AccountInfo = new StoC.P08_UnknownMessage();
+            StoC.P08_AccountInfo AccountInfo = new StoC.P08_AccountInfo();
             AccountInfo.Unknown0 = message.Unknown0;
             AccountInfo.Unknown1 = new Common.UID(new byte[16]);
-            AccountInfo.Unknown2 = new Common.UID(new byte[16]);
+            AccountInfo.CharacterID = new Common.UID(new byte[16]);
             AccountInfo.Unknown3 = 2;
             AccountInfo.Unknown4 = 5;
             AccountInfo.Unknown5 = 390149345;
@@ -153,7 +153,7 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             AccountInfo.Unknown7 = 0;
             AccountInfo.Unknown8 = 3;
             AccountInfo.Unknown9 = new byte[] { 0xA9, 0xD4, 0x57, 0x38, 0x56, 0x05, 0x08, 0x4D, 0x6A, 0xD7, 0x9A, 0x37, 0x50, 0xC5, 0x1B, 0x30, 0xC7, 0xBB, 0x11, 0xA5, 0x64, 0x8C, 0x9C, 0x65, 0x42, 0x20, 0xAD, 0xB2, 0xD3, 0xFD, 0xD3, 0x5F };
-            AccountInfo.Unknown16 = new StoC.P08_UnknownMessage.Struct10[1];
+            AccountInfo.Unknown16 = new StoC.P08_AccountInfo.Struct10[1];
             AccountInfo.Unknown17 = new byte[32];
             Session.Send(AccountInfo);
 
@@ -240,10 +240,10 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             ISession Session = message.Session;
 
             // Protocol version: 20849
-            StoC.P08_UnknownMessage AccountInfo = new StoC.P08_UnknownMessage();
+            StoC.P08_AccountInfo AccountInfo = new StoC.P08_AccountInfo();
             AccountInfo.Unknown0 = message.Unknown0;
             AccountInfo.Unknown1 = new Common.UID(new byte[16]);
-            AccountInfo.Unknown2 = new Common.UID(new byte[16]);
+            AccountInfo.CharacterID = new Common.UID(new byte[16]);
             AccountInfo.Unknown3 = 2;
             AccountInfo.Unknown4 = 5;
             AccountInfo.Unknown5 = 390149345;
@@ -251,7 +251,7 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             AccountInfo.Unknown7 = 1001;
             AccountInfo.Unknown8 = 3;
             AccountInfo.Unknown9 = new byte[] { 0x0f, 0x8a, 0xa1, 0xbb, 0x47, 0x79, 0xb8, 0xf9, 0x20, 0xec, 0x40, 0xfa, 0x45, 0x2c, 0x7d, 0xed, 0x0c, 0xa2, 0xe4, 0x99, 0x70, 0x7c, 0xe9, 0x30, 0x6c, 0x13, 0x01, 0xc5, 0x80, 0xff, 0x57, 0x31 };
-            AccountInfo.Unknown16 = new StoC.P08_UnknownMessage.Struct10[1];
+            AccountInfo.Unknown16 = new StoC.P08_AccountInfo.Struct10[1];
             AccountInfo.Unknown17 = new byte[32];
             Session.Send(AccountInfo);
 

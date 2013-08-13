@@ -15,7 +15,7 @@ using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
 {
-    public class P10_UnknownMessage : GenericMessage
+    public class P10_AccountMedals : GenericMessage
     {
         public int Unknown0;
         public byte[] Unknown1;

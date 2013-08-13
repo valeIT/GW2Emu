@@ -15,11 +15,11 @@ using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
 {
-    public class P08_UnknownMessage : GenericMessage
+    public class P08_AccountInfo : GenericMessage
     {
         public int Unknown0;
         public UID Unknown1;
-        public UID Unknown2;
+        public UID CharacterID;
         public int Unknown3;
         public int Unknown4;
         public int Unknown5;
@@ -60,7 +60,7 @@ namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
             serializer.Write(Header);
             serializer.WriteVarint(this.Unknown0);
             serializer.Write(this.Unknown1);
-            serializer.Write(this.Unknown2);
+            serializer.Write(this.CharacterID);
             serializer.WriteVarint(this.Unknown3);
             serializer.WriteVarint(this.Unknown4);
             serializer.WriteVarint(this.Unknown5);

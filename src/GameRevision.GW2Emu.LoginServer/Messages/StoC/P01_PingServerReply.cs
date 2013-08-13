@@ -15,9 +15,9 @@ using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
 {
-    public class P01_UnknownMessage : GenericMessage
+    public class P01_PingServerReply : GenericMessage
     {
-        public int Unknown0;
+        public int Timestamp;
         
         public override ushort Header
         {
@@ -30,7 +30,7 @@ namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
         public override void Serialize(Serializer serializer)
         {
             serializer.Write(Header);
-            serializer.WriteVarint(this.Unknown0);
+            serializer.WriteVarint(this.Timestamp);
         }
     }
 }
