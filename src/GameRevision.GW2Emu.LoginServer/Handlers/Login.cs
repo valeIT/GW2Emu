@@ -59,12 +59,76 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             ClientSync.Unknown4 = 2198;
             Session.Send(ClientSync);
 
-            StoC.P17_UnknownMessage CharacterInfo = new StoC.P17_UnknownMessage();
+            StoC.P17_CharacterInformation CharacterInfo = new StoC.P17_CharacterInformation();
             CharacterInfo.Unknown0 = message.Unknown0;
-            CharacterInfo.Unknown1 = new Common.UID(new byte[] { 0x74, 0xAE, 0x2A, 0x01, 0xBA, 0x34, 0xE2, 0x11, 0xBC, 0xD1, 0x44, 0x1E, 0xA1, 0x02, 0xB1, 0xB6 });
-            CharacterInfo.Unknown2 = 0;
-            CharacterInfo.Unknown3 = "User";
-            CharacterInfo.Unknown4 = new byte[] { 0x07, 0x8A, 0x00, 0x00, 0x01, 0x06, 0x00, 0x00, 0x02, 0x80, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x16, 0x00, 0x2B, 0x0B, 0x17, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x4A, 0x80, 0x02, 0x09, 0x01, 0x0C, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x03, 0x48, 0x82, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x41, 0x19, 0x00, 0x00, 0xC1, 0x00, 0x6B, 0x00, 0xC1, 0x00, 0x00, 0x00, 0x40, 0x19, 0x00, 0x00, 0xC1, 0x00, 0x6D, 0x00, 0x6B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x42, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x19, 0x00, 0x00, 0xC1, 0x00, 0x6B, 0x00, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x39, 0x2C, 0x67, 0xE8 };
+            CharacterInfo.CharacterID = new Common.UID(new byte[] { 0x74, 0xAE, 0x2A, 0x01, 0xBA, 0x34, 0xE2, 0x11, 0xBC, 0xD1, 0x44, 0x1E, 0xA1, 0x02, 0xB1, 0xB6 });
+            CharacterInfo.Unknown1 = 0;
+            CharacterInfo.CharacterName = "User";
+            CharacterInfo.Character.UnkVal1 = 7;
+            CharacterInfo.Character.MaybeFlags = 0x8A;
+            CharacterInfo.Character.UnkVal2 = 0;
+            CharacterInfo.Character.Level = 1;
+            CharacterInfo.Character.Class = 6; // Elementalist
+            CharacterInfo.Character.UnkVal4 = 0;
+            CharacterInfo.Character.UnkVal5 = 0;
+
+            CharacterInfo.Character.Body = new StoC.P17_CharacterInformation.Body() { Appearance = new byte[] {0x02, 0x80, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x16, 0x00, 0x2B, 0x0B, 0x17, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x4A, 0x80, 0x02, 0x09, 0x01, 0x0C, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x03 } };
+            
+            CharacterInfo.Character.Equipment = new StoC.P17_CharacterInformation.Equipment();
+
+            CharacterInfo.Character.Equipment.RightHand.ItemID = 0x8248;
+            CharacterInfo.Character.Equipment.RightHand.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.LeftHand.ItemID = 0;
+            CharacterInfo.Character.Equipment.LeftHand.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+
+            CharacterInfo.Character.Equipment.BUnk0 = 0;
+            CharacterInfo.Character.Equipment.BUnk1 = 0;
+
+            CharacterInfo.Character.Equipment.Chest.ItemID = 0x1941;
+            CharacterInfo.Character.Equipment.Chest.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.Chest.Color1 = 0xC1;
+            CharacterInfo.Character.Equipment.Chest.Color2 = 0x6B;
+            CharacterInfo.Character.Equipment.Chest.Color3 = 0xC1;
+
+            CharacterInfo.Character.Equipment.Boots.ItemID = 0x1940;
+            CharacterInfo.Character.Equipment.Boots.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.Boots.Color1 = 0xC1;
+            CharacterInfo.Character.Equipment.Boots.Color2 = 0x6D;
+            CharacterInfo.Character.Equipment.Boots.Color3 = 0x6B;
+
+            CharacterInfo.Character.Equipment.UnkItem1.ItemID = 0;
+            CharacterInfo.Character.Equipment.UnkItem1.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.UnkItem1.Color1 = 0;
+            CharacterInfo.Character.Equipment.UnkItem1.Color2 = 0;
+            CharacterInfo.Character.Equipment.UnkItem1.Color3 = 0;
+
+            CharacterInfo.Character.Equipment.Hands.ItemID = 0x1942;
+            CharacterInfo.Character.Equipment.Hands.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.Hands.Color1 = 0;
+            CharacterInfo.Character.Equipment.Hands.Color2 = 0;
+            CharacterInfo.Character.Equipment.Hands.Color3 = 0;
+
+            CharacterInfo.Character.Equipment.Legs.ItemID = 0x1943;
+            CharacterInfo.Character.Equipment.Legs.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.Legs.Color1 = 0xC1;
+            CharacterInfo.Character.Equipment.Legs.Color2 = 0x6B;
+            CharacterInfo.Character.Equipment.Legs.Color3 = 0xC1;
+
+            CharacterInfo.Character.Equipment.Shoulders.ItemID = 0;
+            CharacterInfo.Character.Equipment.Shoulders.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.Shoulders.Color1 = 0;
+            CharacterInfo.Character.Equipment.Shoulders.Color2 = 0;
+            CharacterInfo.Character.Equipment.Shoulders.Color3 = 0;
+
+            CharacterInfo.Character.Equipment.Mask.ItemID = 0;
+            CharacterInfo.Character.Equipment.Mask.Flag = Messages.StoC.P17_CharacterInformation.Visibility.kVisible;
+            CharacterInfo.Character.Equipment.Mask.Color1 = 0;
+            CharacterInfo.Character.Equipment.Mask.Color2 = 0;
+            CharacterInfo.Character.Equipment.Mask.Color3 = 0;
+
+            CharacterInfo.Character.Float1 = 0;
+            CharacterInfo.Character.Float2 = -4366729686259965706108928.000000f;
+
             Session.Send(CharacterInfo);
 
             StoC.P10_UnknownMessage AccountMedals = new StoC.P10_UnknownMessage();

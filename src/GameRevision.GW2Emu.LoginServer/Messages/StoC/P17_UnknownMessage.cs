@@ -15,14 +15,13 @@ using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
 {
-    public class P17_UnknownMessage : GenericMessage
+    public class P17_CharacterInformation : GenericMessage
     {
         public int Unknown0;
-        public UID Unknown1;
-        public int Unknown2;
-        public string Unknown3;
-        public byte[] Unknown4;
-        
+        public UID CharacterID;
+        public int Unknown1;
+        public string CharacterName;
+
         public override ushort Header
         {
             get
@@ -30,19 +29,150 @@ namespace GameRevision.GW2Emu.LoginServer.Messages.StoC
                 return 17;
             }
         }
-        
-        public override void Serialize(Serializer serializer)
+
+        public enum Visibility : ushort
         {
-            serializer.Write(Header);
-            serializer.WriteVarint(this.Unknown0);
-            serializer.Write(this.Unknown1);
-            serializer.WriteVarint(this.Unknown2);
-            serializer.WriteUtf16String(this.Unknown3);
-            serializer.Write((ushort)Unknown4.Length);
-            for (int i = 0; i < Unknown4.Length; i++)
+            kVisible = 0,
+            kHide = 0x8000
+        }
+
+        // Size 4
+        public class Item
+        {
+            public ushort ItemID;
+            public Visibility Flag; 
+
+            public virtual void Serialize(Serializer writer)
             {
-                serializer.Write(Unknown4[i]);
+                writer.Write(ItemID);
+                writer.Write((ushort)Flag);
             }
+        }
+
+        // Size 4 + 8 = 12
+        public class ColoredItem : Item
+        {
+            public ushort Color1;
+            public ushort Color2;
+            public ushort Color3;
+            public ushort Color4 = 0;
+
+            public new void Serialize(Serializer writer)
+            {
+                base.Serialize(writer);
+
+                writer.Write(Color1);
+                writer.Write(Color2);
+                writer.Write(Color3);
+                writer.Write(Color4);
+            }
+        }
+
+        // Size : 4 * 2 + 2 + 6 * 12 = 82
+        public class Equipment
+        {
+            public Item RightHand = new Item();
+            public Item LeftHand = new Item();
+            public byte BUnk0 = 0;
+            public byte BUnk1 = 0; // Both always 0
+            public ColoredItem Chest = new ColoredItem();
+            public ColoredItem Boots = new ColoredItem();
+            public ColoredItem UnkItem1 = new ColoredItem();
+            public ColoredItem Hands = new ColoredItem();
+            public ColoredItem Legs = new ColoredItem();
+            public ColoredItem Shoulders = new ColoredItem();
+            public ColoredItem Mask = new ColoredItem();
+
+            public void Serialize(Serializer writer)
+            {
+                RightHand.Serialize(writer);
+                LeftHand.Serialize(writer);
+                writer.Write(BUnk0);
+                writer.Write(BUnk1);
+                Chest.Serialize(writer);
+                Boots.Serialize(writer);
+                UnkItem1.Serialize(writer);
+                Hands.Serialize(writer);
+                Legs.Serialize(writer);
+                Shoulders.Serialize(writer);
+                Mask.Serialize(writer);
+            }
+        }
+
+        // Size 43 bytes
+        public class Body
+        {
+            public byte[] Appearance = new byte[43]; // 43 bytes
+
+            // #28 - 1 Female, 0 Male
+
+            public void Serialize(Serializer writer)
+            {
+                for (int i = 0; i < Appearance.Length; ++i)
+                    writer.Write(Appearance[i]);
+            }
+        }
+
+        //Size 8 + Body + Equipment + 5 * 4 = 8 + 82 + 43 + 20 = 153
+        public class CharacterPayload
+        {
+            public byte UnkVal1; // Always 07
+            public ushort MaybeFlags;
+            public byte UnkVal2; // 0 - On creation
+            /*
+Human M : 0000 0000 0001 1010
+Human F : 0000 0000 1000 1010
+
+Charr H : 0000 0001 1100 1010
+Charr F : 0000 0001 1100 1010
+
+Norn  F : 0000 0001 0111 1011
+Norn  H : 0000 0001 0111 1011
+             */
+            public byte Level;
+            public byte Class; // 01 - Gardian, 05 - Thief, 06 - Elementalist, 08 Necro
+            public byte UnkVal4; // Always 0
+            public byte UnkVal5; // Always 0
+            public Body Body;
+            public Equipment Equipment;
+            public float Float1; // 0 on creation
+            public float Float2; // 
+
+            public void Serialize(Serializer writer)
+            {
+                writer.Write((ushort)153);
+
+                writer.Write(UnkVal1);
+                writer.Write(MaybeFlags);
+                writer.Write(UnkVal2);
+                writer.Write(Level);
+                writer.Write(Class);
+                writer.Write(UnkVal4);
+                writer.Write(UnkVal5);
+
+                Body.Serialize(writer);
+                Equipment.Serialize(writer);
+
+                writer.Write(Float1);
+                writer.Write(Float2);
+            }
+        }
+
+        CharacterPayload Payload = new CharacterPayload();
+
+        public CharacterPayload Character
+        {
+            get { return Payload; }
+        }
+
+        public override void Serialize(Serializer writer)
+        {
+            writer.Write(Header);
+            writer.WriteVarint(Unknown0);
+            writer.Write(CharacterID);
+            writer.WriteVarint(Unknown1);
+            writer.WriteUtf16String(CharacterName);
+            Payload.Serialize(writer);
         }
     }
 }
