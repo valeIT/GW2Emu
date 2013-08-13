@@ -56,12 +56,12 @@
     <Compile Include="Handlers\Login.cs" />
     <Compile Include="LoginServerApp.cs" />
     <Compile Include="Messages\ClientMessageFactory.cs" />
-    <Compile Include="Messages\CtoS\P01_UnknownMessage.cs" />
-    <Compile Include="Messages\CtoS\P02_UnknownMessage.cs" />
-    <Compile Include="Messages\CtoS\P03_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P01_PingServer.cs" />
+    <Compile Include="Messages\CtoS\P02_ComputerUserName.cs" />
+    <Compile Include="Messages\CtoS\P03_ComputerInfo.cs" />
     <Compile Include="Messages\CtoS\P04_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P05_UnknownMessage.cs" />
-    <Compile Include="Messages\CtoS\P10_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P10_ClientSessionInfo.cs" />
     <Compile Include="Messages\CtoS\P11_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P12_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P14_UnknownMessage.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Messages\CtoS\P24_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P25_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P26_UnknownMessage.cs" />
-    <Compile Include="Messages\CtoS\P29_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P29_EnterWorld.cs" />
     <Compile Include="Messages\CtoS\P34_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P35_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P36_UnknownMessage.cs" />

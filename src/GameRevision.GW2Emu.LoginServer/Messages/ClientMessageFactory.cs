@@ -17,17 +17,17 @@ namespace GameRevision.GW2Emu.LoginServer.Messages
             switch (header)
             {
                 case 1:
-                    return new P01_UnknownMessage();
+                    return new P01_PingServer();
                 case 2:
-                    return new P02_UnknownMessage();
+                    return new P02_ComputerUserName();
                 case 3:
-                    return new P03_UnknownMessage();
+                    return new P03_ComputerInfo();
                 case 4:
                     return new P04_UnknownMessage();
                 case 5:
                     return new P05_UnknownMessage();
                 case 10:
-                    return new P10_UnknownMessage();
+                    return new P10_ClientSessionInfo();
                 case 11:
                     return new P11_UnknownMessage();
                 case 12:
@@ -53,7 +53,7 @@ namespace GameRevision.GW2Emu.LoginServer.Messages
                 case 26:
                     return new P26_UnknownMessage();
                 case 29:
-                    return new P29_UnknownMessage();
+                    return new P29_EnterWorld();
                 case 34:
                     return new P34_UnknownMessage();
                 case 35:

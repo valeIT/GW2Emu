@@ -15,27 +15,21 @@ using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.LoginServer.Messages.CtoS
 {
-    public class P10_UnknownMessage : GenericMessage
+    public class P01_PingServer : GenericMessage
     {
-        public int Unknown0;
-        public UID Unknown1;
-        public UID Unknown2;
-        public string Unknown3;
+        public int Timestamp;
         
         public override ushort Header
         {
             get
             {
-                return 10;
+                return 1;
             }
         }
         
         public override void Deserialize(Deserializer deserializer)
         {
-            this.Unknown0 = deserializer.ReadVarint();
-            this.Unknown1 = deserializer.ReadUID();
-            this.Unknown2 = deserializer.ReadUID();
-            this.Unknown3 = deserializer.ReadUtf16String();
+            this.Timestamp = deserializer.ReadVarint();
         }
     }
 }

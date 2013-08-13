@@ -11,41 +11,41 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
     {
         public void Register(IEventAggregator aggregator)
         {
-            aggregator.Register<CtoS.P01_UnknownMessage>(this.OnPingServer);
-            aggregator.Register<CtoS.P02_UnknownMessage>(this.OnComputerUserName);
-            aggregator.Register<CtoS.P03_UnknownMessage>(this.OnComputerInfo);
-            aggregator.Register<CtoS.P10_UnknownMessage>(this.OnClientSessionInfo);
+            aggregator.Register<CtoS.P01_PingServer>(this.OnPingServer);
+            aggregator.Register<CtoS.P02_ComputerUserName>(this.OnComputerUserName);
+            aggregator.Register<CtoS.P03_ComputerInfo>(this.OnComputerInfo);
+            aggregator.Register<CtoS.P10_ClientSessionInfo>(this.OnClientSessionInfo);
             aggregator.Register<CtoS.P04_UnknownMessage>(this.OnMessage04);
             aggregator.Register<CtoS.P34_UnknownMessage>(this.OnMessage34);
             aggregator.Register<CtoS.P12_UnknownMessage>(this.OnMessage12);
-            aggregator.Register<CtoS.P29_UnknownMessage>(this.OnRedirectToGs);
+            aggregator.Register<CtoS.P29_EnterWorld>(this.OnRedirectToGs);
             aggregator.Register<CtoS.P14_UnknownMessage>(this.OnMessageP14);
             aggregator.Register<CtoS.P22_UnknownMessage>(this.OnCharacterSelect);
             aggregator.Register<CtoS.P20_UnknownMessage>(this.OnCharacterDelete); 
         }
 
-        private void OnPingServer(CtoS.P01_UnknownMessage message)
+        private void OnPingServer(CtoS.P01_PingServer message)
         {
             ISession Session = message.Session;
 
             StoC.P01_PingServerReply PingServerReply = new StoC.P01_PingServerReply();
-            PingServerReply.Timestamp = message.Unknown0;
+            PingServerReply.Timestamp = message.Timestamp;
             Session.Send(PingServerReply);
         }
 
-        private void OnComputerUserName(CtoS.P02_UnknownMessage message)
+        private void OnComputerUserName(CtoS.P02_ComputerUserName message)
         {
             ISession Session = message.Session;
         }
 
-        private void OnComputerInfo(CtoS.P03_UnknownMessage message)
+        private void OnComputerInfo(CtoS.P03_ComputerInfo message)
         {
             ISession Session = message.Session;
 
             Session.Send(new StoC.P02_ComputerInfoReply());
         }
 
-        private void OnClientSessionInfo(CtoS.P10_UnknownMessage message)
+        private void OnClientSessionInfo(CtoS.P10_ClientSessionInfo message)
         {
             ISession Session = message.Session;
 
@@ -208,15 +208,15 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             Session.Send(Sync);
         }
 
-        private void OnRedirectToGs(CtoS.P29_UnknownMessage message)
+        private void OnRedirectToGs(CtoS.P29_EnterWorld message)
         {
             ISession Session = message.Session;
 
             StoC.P20_UnknownMessage ReferToGameServerMessage = new StoC.P20_UnknownMessage();
-            ReferToGameServerMessage.Unknown0 = message.Unknown0;
-            ReferToGameServerMessage.Unknown1 = message.Unknown1; // Stage 
+            ReferToGameServerMessage.Unknown0 = message.AuthInc;
+            ReferToGameServerMessage.Unknown1 = message.Type; // Stage 
             ReferToGameServerMessage.Unknown2 = 0;
-            ReferToGameServerMessage.Unknown3 = message.Unknown3; // Map
+            ReferToGameServerMessage.Unknown3 = message.MapID; // Map
             ReferToGameServerMessage.Unknown4 = new IPEndPoint(IPAddress.Loopback, 0);
             ReferToGameServerMessage.Unknown5 = 0;
             Session.Send(ReferToGameServerMessage);

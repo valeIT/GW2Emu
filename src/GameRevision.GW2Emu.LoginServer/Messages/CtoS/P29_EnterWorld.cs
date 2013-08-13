@@ -15,12 +15,12 @@ using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.LoginServer.Messages.CtoS
 {
-    public class P29_UnknownMessage : GenericMessage
+    public class P29_EnterWorld : GenericMessage
     {
-        public int Unknown0;
-        public int Unknown1;
+        public int AuthInc;
+        public int Type;
         public int Unknown2;
-        public int Unknown3;
+        public int MapID;
         public int Unknown4;
         
         public override ushort Header
@@ -33,10 +33,10 @@ namespace GameRevision.GW2Emu.LoginServer.Messages.CtoS
         
         public override void Deserialize(Deserializer deserializer)
         {
-            this.Unknown0 = deserializer.ReadVarint();
-            this.Unknown1 = deserializer.ReadVarint();
+            this.AuthInc = deserializer.ReadVarint();
+            this.Type = deserializer.ReadVarint();
             this.Unknown2 = deserializer.ReadVarint();
-            this.Unknown3 = deserializer.ReadVarint();
+            this.MapID = deserializer.ReadVarint();
             this.Unknown4 = deserializer.ReadVarint();
         }
     }

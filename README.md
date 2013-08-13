@@ -10,6 +10,7 @@ GW2Emu
     Polimorfik
     nefarel
     Desire
+    Yamashi
 
 The server is currently in development, and will experience a lot of heavy changes during the next few months.
 As that's said, don't expect a fully working server in the nearest future.
